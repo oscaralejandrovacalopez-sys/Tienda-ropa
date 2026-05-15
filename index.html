@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ModaTrend — Tienda de Ropa</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'display': ['Playfair Display', 'serif'],
+            'body': ['Inter', 'sans-serif'],
+          },
+          colors: {
+            'moda': {
+              50: '#fdf8f0',
+              100: '#f9eddb',
+              200: '#f2d7b0',
+              300: '#e9bb7c',
+              400: '#e09d4e',
+              500: '#d4852e',
+              600: '#c46a22',
+              700: '#a3511e',
+              800: '#834220',
+              900: '#6b381d',
+              950: '#3a1b0d',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+    .font-display { font-family: 'Playfair Display', serif; }
+    .hero-gradient {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    }
+    .card-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    .nav-blur {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.6s ease forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in:nth-child(2) { animation-delay: 0.1s; }
+    .fade-in:nth-child(3) { animation-delay: 0.2s; }
+    .fade-in:nth-child(4) { animation-delay: 0.3s; }
+    .whatsapp-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 50;
+      width: 56px;
+      height: 56px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(37,211,102,0.4);
+      transition: transform 0.2s;
+    }
+    .whatsapp-btn:hover { transform: scale(1.1); }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+
+  <!-- ============ NAVBAR ============ -->
+  <nav class="fixed top-0 left-0 w-full z-40 nav-blur bg-white/90 border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <a href="#" class="flex items-center space-x-2">
+          <span class="text-2xl">👗</span>
+          <span class="font-display text-xl font-bold text-gray-900">Moda<span class="text-moda-500">Trend</span></span>
+        </a>
+        <!-- Nav links -->
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="#inicio" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">Inicio</a>
+          <a href="#productos" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">Productos</a>
+          <a href="#nosotros" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">Nosotros</a>
+          <a href="#testimonios" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">Testimonios</a>
+          <a href="#contacto" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">Contacto</a>
+        </div>
+        <!-- CTA -->
+        <a href="#contacto" class="hidden sm:inline-flex bg-gray-900 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-gray-800 transition">Contactar</a>
+        <!-- Mobile menu -->
+        <button id="menu-toggle" class="md:hidden text-gray-600 focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile menu dropdown -->
+  <div id="mobile-menu" class="hidden fixed inset-0 z-30 bg-white pt-16">
+    <div class="flex flex-col items-center space-y-6 pt-12">
+      <a href="#inicio" class="text-lg font-medium" onclick="toggleMenu()">Inicio</a>
+      <a href="#productos" class="text-lg font-medium" onclick="toggleMenu()">Productos</a>
+      <a href="#nosotros" class="text-lg font-medium" onclick="toggleMenu()">Nosotros</a>
+      <a href="#testimonios" class="text-lg font-medium" onclick="toggleMenu()">Testimonios</a>
+      <a href="#contacto" class="bg-gray-900 text-white px-8 py-3 rounded-full" onclick="toggleMenu()">Contactar</a>
+    </div>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <section id="inicio" class="hero-gradient min-h-screen flex items-center pt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="space-y-6 fade-in">
+          <span class="inline-block bg-white/10 text-white/80 px-4 py-1.5 rounded-full text-sm font-medium">✨ Nueva Colección 2026</span>
+          <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
+            Expresa tu <span class="text-moda-400">estilo</span><br />sin límites
+          </h1>
+          <p class="text-gray-300 text-lg leading-relaxed max-w-lg">
+            Descubre prendas únicas que combinan calidad, diseño y tendencia. 
+            Ropa que habla por ti, para cada momento de tu vida.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="#productos" class="bg-moda-500 text-white px-8 py-3.5 rounded-full font-medium hover:bg-moda-600 transition shadow-lg shadow-moda-500/25">
+              Ver Colección
+            </a>
+            <a href="#contacto" class="border border-white/30 text-white px-8 py-3.5 rounded-full font-medium hover:bg-white/10 transition">
+              Contáctanos
+            </a>
+          </div>
+        </div>
+        <div class="relative fade-in hidden md:block">
+          <div class="relative z-10 bg-gradient-to-br from-moda-200/20 to-moda-400/10 rounded-3xl p-8 border border-white/10">
+            <div class="grid grid-cols-2 gap-4">
+              <div class="space-y-4">
+                <div class="bg-white/10 rounded-2xl p-4 aspect-square flex items-center justify-center text-5xl">👕</div>
+                <div class="bg-white/10 rounded-2xl p-4 aspect-square flex items-center justify-center text-5xl">👗</div>
+              </div>
+              <div class="space-y-4 pt-8">
+                <div class="bg-white/10 rounded-2xl p-4 aspect-square flex items-center justify-center text-5xl">🧥</div>
+                <div class="bg-white/10 rounded-2xl p-4 aspect-square flex items-center justify-center text-5xl">👟</div>
+              </div>
+            </div>
+          </div>
+          <div class="absolute -top-4 -right-4 w-24 h-24 bg-moda-500/20 rounded-full blur-xl"></div>
+          <div class="absolute -bottom-8 -left-8 w-32 h-32 bg-blue-500/10 rounded-full blur-xl"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRODUCTOS ============ -->
+  <section id="productos" class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <span class="text-moda-500 font-medium text-sm tracking-widest uppercase">Productos</span>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-gray-900 mt-3">Lo más destacado</h2>
+        <p class="text-gray-500 mt-4 max-w-xl mx-auto">Prendas seleccionadas para quienes buscan calidad, comodidad y estilo.</p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Product 1 -->
+        <div class="bg-white rounded-2xl overflow-hidden shadow-sm card-hover">
+          <div class="bg-gray-100 h-64 flex items-center justify-center text-6xl">👕</div>
+          <div class="p-5">
+            <span class="text-xs text-moda-500 font-medium">NUEVO</span>
+            <h3 class="font-semibold text-lg mt-1">Camisa Premium</h3>
+            <p class="text-gray-400 text-sm mt-1">Algodón orgánico · Relax fit</p>
+            <div class="flex items-center justify-between mt-4">
+              <span class="text-xl font-bold text-gray-900">$499</span>
+              <button class="bg-gray-900 text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition">Comprar</button>
+            </div>
+          </div>
+        </div>
+        <!-- Product 2 -->
+        <div class="bg-white rounded-2xl overflow-hidden shadow-sm card-hover">
+          <div class="bg-gray-100 h-64 flex items-center justify-center text-6xl">👗</div>
+          <div class="p-5">
+            <span class="text-xs text-green-500 font-medium">MÁS VENDIDO</span>
+            <h3 class="font-semibold text-lg mt-1">Vestido Elegante</h3>
+            <p class="text-gray-400 text-sm mt-1">Seda · Corte midi</p>
+            <div class="flex items-center justify-between mt-4">
+              <span class="text-xl font-bold text-gray-900">$899</span>
+              <button class="bg-gray-900 text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition">Comprar</button>
+            </div>
+          </div>
+        </div>
+        <!-- Product 3 -->
+        <div class="bg-white rounded-2xl overflow-hidden shadow-sm card-hover">
+          <div class="bg-gray-100 h-64 flex items-center justify-center text-6xl">🧥</div>
+          <div class="p-5">
+            <span class="text-xs text-moda-500 font-medium">NUEVO</span>
+            <h3 class="font-semibold text-lg mt-1">Chaqueta Urbana</h3>
+            <p class="text-gray-400 text-sm mt-1">Mezclilla · Unisex</p>
+            <div class="flex items-center justify-between mt-4">
+              <span class="text-xl font-bold text-gray-900">$1,299</span>
+              <button class="bg-gray-900 text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition">Comprar</button>
+            </div>
+          </div>
+        </div>
+        <!-- Product 4 -->
+        <div class="bg-white rounded-2xl overflow-hidden shadow-sm card-hover">
+          <div class="bg-gray-100 h-64 flex items-center justify-center text-6xl">👟</div>
+          <div class="p-5">
+            <span class="text-xs text-blue-500 font-medium">OFERTA</span>
+            <h3 class="font-semibold text-lg mt-1">Tenis Casual</h3>
+            <p class="text-gray-400 text-sm mt-1">Lona · Cómodos</p>
+            <div class="flex items-center justify-between mt-4">
+              <span class="text-xl font-bold text-gray-900">$649</span>
+              <span class="text-sm text-gray-400 line-through">$899</span>
+              <button class="bg-gray-900 text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition">Comprar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-12">
+        <a href="#" class="inline-flex items-center text-moda-500 font-medium hover:text-moda-600 transition">
+          Ver todos los productos
+          <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NOSOTROS ============ -->
+  <section id="nosotros" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div>
+          <span class="text-moda-500 font-medium text-sm tracking-widest uppercase">Nosotros</span>
+          <h2 class="font-display text-3xl sm:text-4xl font-bold text-gray-900 mt-3">Pasión por la moda desde 2020</h2>
+          <p class="text-gray-500 mt-6 leading-relaxed">
+            En <strong>ModaTrend</strong> creemos que la ropa es más que tela: es expresión. 
+            Desde nuestro primer local en Irapuato, nos dedicamos a ofrecer prendas 
+            de calidad que combinan las últimas tendencias con precios accesibles.
+          </p>
+          <p class="text-gray-500 mt-4 leading-relaxed">
+            Trabajamos directamente con proveedores nacionales para garantizar 
+            la mejor relación calidad-precio. Cada prenda es seleccionada pensando 
+            en ti y en lo que quieres expresar.
+          </p>
+          <div class="grid grid-cols-3 gap-8 mt-10">
+            <div>
+              <span class="text-3xl font-bold text-gray-900">500+</span>
+              <p class="text-gray-400 text-sm mt-1">Clientes felices</p>
+            </div>
+            <div>
+              <span class="text-3xl font-bold text-gray-900">1K+</span>
+              <p class="text-gray-400 text-sm mt-1">Prendas vendidas</p>
+            </div>
+            <div>
+              <span class="text-3xl font-bold text-gray-900">4.9</span>
+              <p class="text-gray-400 text-sm mt-1">Calificación</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gradient-to-br from-moda-100 to-moda-50 rounded-3xl p-10">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white rounded-2xl p-6 text-center shadow-sm">
+              <span class="text-4xl">🚚</span>
+              <h4 class="font-semibold mt-3">Envío gratis</h4>
+              <p class="text-gray-400 text-sm mt-1">En compras +$999</p>
+            </div>
+            <div class="bg-white rounded-2xl p-6 text-center shadow-sm">
+              <span class="text-4xl">🔄</span>
+              <h4 class="font-semibold mt-3">Cambios fáciles</h4>
+              <p class="text-gray-400 text-sm mt-1">30 días gratis</p>
+            </div>
+            <div class="bg-white rounded-2xl p-6 text-center shadow-sm">
+              <span class="text-4xl">💳</span>
+              <h4 class="font-semibold mt-3">Pago seguro</h4>
+              <p class="text-gray-400 text-sm mt-1">Tarjeta o efectivo</p>
+            </div>
+            <div class="bg-white rounded-2xl p-6 text-center shadow-sm">
+              <span class="text-4xl">🎧</span>
+              <h4 class="font-semibold mt-3">Soporte 24/7</h4>
+              <p class="text-gray-400 text-sm mt-1">Siempre contigo</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIOS ============ -->
+  <section id="testimonios" class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <span class="text-moda-500 font-medium text-sm tracking-widest uppercase">Testimonios</span>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-gray-900 mt-3">Lo que dicen nuestros clientes</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-sm card-hover">
+          <div class="flex text-yellow-400 mb-4">★★★★★</div>
+          <p class="text-gray-600 leading-relaxed">"La calidad de las prendas es increíble. Compré un vestido para una boda y recibí muchísimos cumplidos. ¡100% recomendado!"</p>
+          <div class="flex items-center mt-6">
+            <div class="w-10 h-10 bg-moda-100 rounded-full flex items-center justify-center text-lg">👩</div>
+            <div class="ml-3">
+              <p class="font-medium text-sm">María G.</p>
+              <p class="text-gray-400 text-xs">Cliente frecuente</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-8 shadow-sm card-hover">
+          <div class="flex text-yellow-400 mb-4">★★★★★</div>
+          <p class="text-gray-600 leading-relaxed">"Excelente atención y los precios son muy competitivos. Las camisas de algodón son las más cómodas que he probado."</p>
+          <div class="flex items-center mt-6">
+            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-lg">👨</div>
+            <div class="ml-3">
+              <p class="font-medium text-sm">Carlos R.</p>
+              <p class="text-gray-400 text-xs">Compra recurrente</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-8 shadow-sm card-hover">
+          <div class="flex text-yellow-400 mb-4">★★★★★</div>
+          <p class="text-gray-600 leading-relaxed">"El envío llegó antes de lo esperado y la ropa es tal cual se ve en las fotos. Amo los tenis que compré, súper cómodos."</p>
+          <div class="flex items-center mt-6">
+            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-lg">🧑</div>
+            <div class="ml-3">
+              <p class="font-medium text-sm">Ana L.</p>
+              <p class="text-gray-400 text-xs">Nueva clienta</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA / CONTACTO ============ -->
+  <section id="contacto" class="py-20 hero-gradient">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <span class="inline-block bg-white/10 text-white/80 px-4 py-1.5 rounded-full text-sm font-medium">📩 Contáctanos</span>
+      <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mt-6">¿Listo para renovar tu clóset?</h2>
+      <p class="text-gray-300 mt-4 max-w-lg mx-auto">
+        Escríbenos y te atenderemos personalmente. Consulta precios, tallas y disponibilidad.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4 mt-10">
+        <a href="https://wa.me/524621009235" target="_blank" class="bg-green-500 text-white px-8 py-3.5 rounded-full font-medium hover:bg-green-600 transition shadow-lg shadow-green-500/25 inline-flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
+        <a href="mailto:contacto@modatrend.mx" class="border border-white/30 text-white px-8 py-3.5 rounded-full font-medium hover:bg-white/10 transition">
+          ✉️ Correo
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="bg-gray-900 text-gray-400 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div>
+          <span class="text-white font-display text-lg font-bold">Moda<span class="text-moda-400">Trend</span></span>
+          <p class="text-sm mt-3 leading-relaxed">Tu tienda de ropa favorita. Moda accesible y de calidad para todos.</p>
+        </div>
+        <div>
+          <h4 class="text-white font-medium mb-4">Productos</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" class="hover:text-white transition">Ropa de mujer</a></li>
+            <li><a href="#" class="hover:text-white transition">Ropa de hombre</a></li>
+            <li><a href="#" class="hover:text-white transition">Accesorios</a></li>
+            <li><a href="#" class="hover:text-white transition">Calzado</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-medium mb-4">Ayuda</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" class="hover:text-white transition">Envíos</a></li>
+            <li><a href="#" class="hover:text-white transition">Cambios y devoluciones</a></li>
+            <li><a href="#" class="hover:text-white transition">Preguntas frecuentes</a></li>
+            <li><a href="#" class="hover:text-white transition">Tallas</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-medium mb-4">Síguenos</h4>
+          <div class="flex space-x-4">
+            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition">📸</a>
+            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition">📘</a>
+            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition">🐦</a>
+          </div>
+          <p class="text-xs mt-4">Irapuato, Guanajuato, MX</p>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-10 pt-8 text-center text-sm">
+        <p>© 2026 ModaTrend. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Button -->
+  <a href="https://wa.me/524621009235" target="_blank" class="whatsapp-btn" aria-label="WhatsApp">
+    <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <script>
+    // Mobile menu toggle
+    function toggleMenu() {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    }
+    document.getElementById('menu-toggle').addEventListener('click', toggleMenu);
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
